@@ -46,13 +46,3 @@ src/emulator_watcher/
 └── widgets/
     └── emulator_panel.py
 ```
-
-## Known Limitations / Next Steps
-- Currently relies on repeated screenshots; for smoother video consider piping `screenrecord` and decoding H.264.
-- Workers stop only between screencap calls; cancelling a hung `adb` might need timeouts + channel close.
-- No explicit port-forwarding controls; assume emulators run directly on the remote host where `adb` executes.
-- Error surfaces mainly via log output; hooking into UI notifications for worker failures would improve UX.
-
-## Logging & Debugging
-- The app enables a basic logging configuration; run it from a terminal to view SSH/ADB warnings.
-- If your SSH config uses includes or ProxyCommand entries, extend `ssh_config.py` to handle them appropriately.
