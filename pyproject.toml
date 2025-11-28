@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emulator-watcher"
+version = "0.1.0"
+description = "PyQt app that streams Android emulator screens over SSH"
+authors = [{ name = "Your Name" }]
+requires-python = ">=3.10"
+dependencies = ["PyQt6>=6.7", "paramiko>=3.4"]
+
+[project.optional-dependencies]
+dev = ["mypy", "ruff"]
+
+[project.scripts]
+emulator-watcher = "emulator_watcher.app:main"
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true

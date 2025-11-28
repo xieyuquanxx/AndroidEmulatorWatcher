@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: emulator-watcher
+Version: 0.1.0
+Summary: PyQt app that streams Android emulator screens over SSH
+Author: Your Name
+Requires-Python: >=3.10
+Requires-Dist: PyQt6>=6.7
+Requires-Dist: paramiko>=3.4
+Provides-Extra: dev
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"

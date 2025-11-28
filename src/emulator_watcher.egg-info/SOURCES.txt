@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/emulator_watcher/__init__.py
+src/emulator_watcher/__main__.py
+src/emulator_watcher/adb_service.py
+src/emulator_watcher/app.py
+src/emulator_watcher/models.py
+src/emulator_watcher/ssh_client.py
+src/emulator_watcher/ssh_config.py
+src/emulator_watcher.egg-info/PKG-INFO
+src/emulator_watcher.egg-info/SOURCES.txt
+src/emulator_watcher.egg-info/dependency_links.txt
+src/emulator_watcher.egg-info/entry_points.txt
+src/emulator_watcher.egg-info/requires.txt
+src/emulator_watcher.egg-info/top_level.txt
+src/emulator_watcher/widgets/__init__.py
+src/emulator_watcher/widgets/emulator_panel.py

@@ -1,0 +1,2 @@
+[console_scripts]
+emulator-watcher = emulator_watcher.app:main
