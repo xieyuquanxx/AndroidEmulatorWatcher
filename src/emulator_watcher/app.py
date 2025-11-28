@@ -3,10 +3,12 @@ from __future__ import annotations
 import logging
 import sys
 from functools import partial
+from pathlib import Path
 from queue import Empty
 from typing import Dict, List, Optional
 
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QBrush, QColor, QFont, QIcon, QLinearGradient, QPainter, QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
     QComboBox,
@@ -29,6 +31,9 @@ from .models import EmulatorDescriptor
 from .ssh_client import SSHSession
 from .ssh_config import SSHConfigLoader
 from .widgets.emulator_panel import EmulatorPanel
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ICON_PATH = PROJECT_ROOT / "assets" / "icon.png"
 
 
 class MainWindow(QMainWindow):
@@ -295,7 +300,9 @@ def main() -> None:
         level=logging.INFO, format="[%(levelname)s] %(name)s: %(message)s"
     )
     app = QApplication(sys.argv)
+    app.setWindowIcon(_build_app_icon())
     window = MainWindow()
+    window.setWindowIcon(app.windowIcon())
     window.resize(1920, 1080)
     window.show()
     sys.exit(app.exec())
@@ -303,3 +310,47 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def _build_app_icon(size: int = 256) -> QIcon:
+    """Load the shipping icon from assets with a graceful fallback."""
+
+    if ICON_PATH.exists():
+        icon = QIcon(str(ICON_PATH))
+        if not icon.isNull():
+            return icon
+        logging.warning(
+            "Failed to load assets/icon.png, falling back to generated icon"
+        )
+    else:
+        logging.warning("assets/icon.png missing, falling back to generated icon")
+
+    return _build_fallback_icon(size)
+
+
+def _build_fallback_icon(size: int = 256) -> QIcon:
+    pixmap = QPixmap(size, size)
+    pixmap.fill(Qt.GlobalColor.transparent)
+
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+    gradient = QLinearGradient(0, 0, 0, size)
+    gradient.setColorAt(0.0, QColor("#3a7bd5"))
+    gradient.setColorAt(1.0, QColor("#00d2ff"))
+    painter.setBrush(QBrush(gradient))
+    painter.setPen(Qt.PenStyle.NoPen)
+    margin = size * 0.1
+    diameter = size - (margin * 2)
+    painter.drawRoundedRect(margin, margin, diameter, diameter, 40, 40)
+
+    painter.setPen(QColor("#fefefe"))
+    font = QFont("SF Pro Rounded", int(size * 0.35), QFont.Weight.DemiBold)
+    font.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 105)
+    painter.setFont(font)
+    painter.drawText(pixmap.rect(), Qt.AlignmentFlag.AlignCenter, "EW")
+    painter.end()
+
+    icon = QIcon()
+    icon.addPixmap(pixmap)
+    return icon

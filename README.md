@@ -1,4 +1,4 @@
-# Emulator Watcher
+<img src="assets/icon.png" alt="Emulator Watcher icon" width="64" height="64" />Emulator Watcher
 
 PyQt-based desktop app that connects to remote servers over SSH, discovers running Android emulators via `adb`, and continuously streams their screenshots into a multi-panel viewer.
 
