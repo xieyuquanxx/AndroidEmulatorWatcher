@@ -15,6 +15,7 @@ dev = ["mypy", "ruff"]
 
 [project.scripts]
 emulator-watcher = "emulator_watcher.app:main"
+ew = "emulator_watcher.app:main"
 
 [[tool.uv.index]]
 url = "https://mirrors.aliyun.com/pypi/simple/"
