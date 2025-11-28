@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "emulator-watcher"
 version = "0.1.0"
 description = "PyQt app that streams Android emulator screens over SSH"
-authors = [{ name = "Your Name" }]
+authors = [{ name = "xieyuquan20016@gmail.com" }]
 requires-python = ">=3.10"
 dependencies = ["PyQt6>=6.7", "paramiko>=3.4"]
 
