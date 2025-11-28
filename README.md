@@ -2,6 +2,11 @@
 
 PyQt-based desktop app that connects to remote servers over SSH, discovers running Android emulators via `adb`, and continuously streams their screenshots into a multi-panel viewer.
 
+## Screenshot
+
+![Emulator Watcher demo](assets/demo.png)
+*Demo screenshot showing multiple emulator feeds streamed into the viewer.*
+
 ## Features
 - Reads available hosts directly from your `~/.ssh/config` file for quick selection.
 - Establishes an SSH session using Paramiko and runs all `adb` commands remotely.
