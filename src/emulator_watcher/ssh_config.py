@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable, List
+from typing import Iterable
 
 from paramiko.config import SSHConfig
 
@@ -14,7 +14,7 @@ class SSHConfigLoader:
     def __init__(self, config_path: Path | None = None) -> None:
         self.config_path = config_path or Path.home() / ".ssh" / "config"
 
-    def load(self) -> List[SSHHost]:
+    def load(self) -> list[SSHHost]:
         if not self.config_path.exists():
             return []
 
@@ -22,7 +22,7 @@ class SSHConfigLoader:
             config = SSHConfig()
             config.parse(handle)
 
-        hosts: List[SSHHost] = []
+        hosts: list[SSHHost] = []
         for host_entry in self._iter_host_entries(config):
             alias = host_entry.get("alias")
             hostname = host_entry.get("hostname")

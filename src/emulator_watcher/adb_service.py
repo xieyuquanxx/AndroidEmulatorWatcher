@@ -3,14 +3,15 @@ from __future__ import annotations
 import logging
 import queue
 import threading
-import time
 from dataclasses import dataclass
-from typing import Dict, List
 
 from .models import EmulatorDescriptor, FrameEvent
 from .ssh_client import SSHSession
 
 logger = logging.getLogger(__name__)
+
+# Default adb executable path
+DEFAULT_ADB_PATH = "/data7/Users/xyq/develop/gui-agent/sdk/platform-tools/adb"
 
 
 @dataclass(slots=True)
@@ -27,16 +28,16 @@ class ADBService:
         self,
         ssh_session: SSHSession,
         interval: float = 1.0,
-        adb_executable: str = "/data7/Users/xyq/develop/gui-agent/sdk/platform-tools/adb",
+        adb_executable: str = DEFAULT_ADB_PATH,
     ) -> None:
         self.ssh_session = ssh_session
         self.frame_queue: queue.Queue[FrameEvent] = queue.Queue()
         self.interval = interval
-        self._workers: Dict[str, _WorkerHandle] = {}
+        self._workers: dict[str, _WorkerHandle] = {}
         self._lock = threading.RLock()
         self.adb_executable = adb_executable
 
-    def list_emulators(self) -> List[EmulatorDescriptor]:
+    def list_emulators(self) -> list[EmulatorDescriptor]:
         result = self.ssh_session.run(f"{self.adb_executable} devices", timeout=10)
         if not result.ok:
             logger.warning(
@@ -45,7 +46,7 @@ class ADBService:
             return []
 
         lines = result.stdout.decode("utf-8", errors="ignore").splitlines()
-        descriptors: List[EmulatorDescriptor] = []
+        descriptors: list[EmulatorDescriptor] = []
         for line in lines[1:]:
             line = line.strip()
             if not line or "device" not in line:
@@ -117,6 +118,3 @@ def _serial_to_port(serial: str) -> int:
         return int(suffix)
     except ValueError:
         return -1
-
-
-# /data7/Users/xyq/develop/gui-agent/sdk/platform-tools/adb

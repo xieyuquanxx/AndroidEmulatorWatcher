@@ -24,7 +24,7 @@ class SSHSession:
         self.connect()
         return self
 
-    def __exit__(self, exc_type, exc, tb) -> None:  # type: ignore[override]
+    def __exit__(self, exc_type, exc, tb) -> None:
         self.close()
 
     @property
