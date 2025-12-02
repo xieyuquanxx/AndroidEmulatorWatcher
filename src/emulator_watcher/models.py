@@ -34,7 +34,7 @@ class FrameEvent:
 
     emulator: EmulatorDescriptor
     frame_bytes: bytes
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=datetime.now)
 
 
 @dataclass(slots=True)

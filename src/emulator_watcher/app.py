@@ -92,7 +92,9 @@ class MainWindow(QMainWindow):
 
         adb_row = QHBoxLayout()
         self.adb_path_edit = QLineEdit()
-        self.adb_path_edit.setPlaceholderText("/usr/bin/adb or leave empty")
+        self.adb_path_edit.setText(
+            "/data7/Users/xyq/develop/gui-agent/sdk/platform-tools/adb"
+        )
         self.adb_path_edit.textChanged.connect(self._update_connect_state)
         adb_row.addWidget(QLabel("Remote adb path:"))
         adb_row.addWidget(self.adb_path_edit)

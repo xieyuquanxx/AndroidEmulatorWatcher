@@ -59,7 +59,7 @@ class EmulatorPanel(QWidget):
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_font = self.title_label.font()
         title_font.setPointSize(12)
-        title_font.setWeight(QFont.Weight.DemiBold)
+        title_font.setWeight(QFont.Weight.Bold)
         self.title_label.setFont(title_font)
 
         self.frame_label = QLabel("Waiting for frame...")
